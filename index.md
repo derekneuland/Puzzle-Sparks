@@ -1,32 +1,52 @@
 ---
+layout: default
 title: Home
-layout: home
+nav_order: 1
+permalink: /
+description: This site serves as a collection of documentation about the RAPIDS accelerator for Apache Spark
 ---
+# Overview
+The RAPIDS Accelerator for Apache Spark leverages GPUs to accelerate processing via the
+[RAPIDS libraries](http://rapids.ai).
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+As data scientists shift from using traditional analytics to leveraging AI(DL/ML) applications that 
+better model complex market demands, traditional CPU-based processing can no longer keep up without 
+compromising either speed or cost. The growing adoption of AI in analytics has created the need for 
+a new framework to process data quickly and cost-efficiently with GPUs.
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+The RAPIDS Accelerator for Apache Spark combines the power of the <a href="https://github.com/rapidsai/cudf/">RAPIDS cuDF</a> library and the scale of the Spark distributed computing framework.  The RAPIDS Accelerator library also has a built-in accelerated shuffle based on <a href="https://github.com/openucx/ucx/">UCX</a> that can be configured to leverage GPU-to-GPU communication and RDMA capabilities. 
 
-More specifically, the created site:
+## Performance & Cost Benefits
+Rapids Accelerator for Apache Spark reaps the benefit of GPU performance while saving infrastructure costs.
+![Perf-cost](/docs/img/perf-cost.png)
+*ETL for FannieMae Mortgage Dataset (~200GB) as shown in our 
+[demo](https://databricks.com/session_na20/deep-dive-into-gpu-support-in-apache-spark-3-x). Costs 
+based on Cloud T4 GPU instance market price.
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+Please refer to [spark-rapids-examples repo](https://github.com/NVIDIA/spark-rapids-examples/tree/main/examples/XGBoost-Examples)
+for details of this example job.
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+## Ease of Use
+Run your existing Apache Spark applications with no code change.  Launch Spark with the RAPIDS Accelerator for Apache Spark plugin jar and enable a configuration setting: 
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+`spark.conf.set('spark.rapids.sql.enabled','true')`
 
-To get started with creating a site, just click "[use this template]"!
+The following is an example of a physical plan with operators running on the GPU: 
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+```
+== Physical Plan ==
+GpuColumnarToRow false
++- GpuProject [cast(c_customer_sk#0 as string) AS c_customer_sk#40]
+   +- GpuFileGpuScan parquet [c_customer_sk#0] Batched: true, DataFilters: [], Format: Parquet, Location: InMemoryFileIndex[file:/tmp/customer], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<c_customer_sk:int>
+```
 
-----
+Learn more on how to [get started](get-started/getting-started.md).
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+## A Unified AI framework for ETL + ML/DL 
+A single pipeline, from ingest to data preparation to model training
+![spark3cluster](/docs/img/spark3cluster.png)
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+## Technical Support 
+
+If you need any help or have questions on this product, please contact us : 
+spark-rapids-support@nvidia.com
