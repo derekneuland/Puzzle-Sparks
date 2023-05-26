@@ -50,34 +50,3 @@ A single pipeline, from ingest to data preparation to model training
 
 If you need any help or have questions on this product, please contact us : 
 spark-rapids-support@nvidia.com
-
-<highlight-widget api-key="64402e8ec4dad4bb24717cc9"></highlight-widget>
-<script>
-  const widget = document.querySelector("highlight-widget");
-  widget.config = {
-    puzzleBranding: true,
-    hasMarkAll: true,
-    hasMarkHyperlink: true,
-    callToAction: {
-      text: "CTA",
-      link: "https://puzzlelabs.ai",
-    },
-    selectors: ["body"],
-  };
-  widget.theme = {
-    mode: "light",
-    marker: {
-      color: "#E7FF57",
-      type: "highlight",
-    },
-    modal: {
-      backgroundColor: "#E7E8FE",
-      primaryColor: "#000",
-      secondaryColor: "#74747F",
-    },
-    callToAction: {
-      color: "#fff",
-      backgroundColor: "#000",
-    },
-  };
-</script>
